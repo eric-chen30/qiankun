@@ -1,10 +1,13 @@
 <template>
   <div id="app">
     <div class="layout-header">
-      <div class="logo">QIANKUN-WUZHIQUAN</div>
+      <div class="logo">QIANKUN-ERICCHEN</div>
       <ul class="sub-apps">
         <li v-for="item in microApps" :class="{active: item.activeRule === current}" :key="item.name" @click="goto(item)">{{ item.name }}</li>
       </ul>
+    </div>
+    <div class="content">
+      Hello,QIANKUN!!!!
     </div>
     <div id="subapp-viewport"></div>
   </div>
@@ -18,7 +21,7 @@ export default {
   data() {
     return {
       microApps,
-      current: '/vue-sub1'
+      current: ''
     }
   },
   methods: {
@@ -37,10 +40,20 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 html, body{
   margin: 0 !important;
   padding: 0;
+}
+.content {
+  height: 200px;
+  width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: bold;
+  color: #42b983;
 }
 .layout-header{
   height: 50px;
@@ -63,6 +76,9 @@ html, body{
   padding: 0 20px;
   cursor: pointer;
   float: left;
+  font-weight: bold;
+  color: darkgray;
+  font-size: 18px;
 }
 .sub-apps li.active {
   color: #42b983;
