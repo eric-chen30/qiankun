@@ -2,7 +2,12 @@ const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
   transpileDependencies: true,
   devServer: {
-    port: 8081
+    host: 'localhost',
+    port: 8081,
+    open: true,
+    headers: {
+      'Access-Control-Allow-Origin': '*'
+    }
   },
   chainWebpack: config => {
     config.plugin('html').tap((args) => {
