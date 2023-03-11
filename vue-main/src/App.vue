@@ -2,9 +2,10 @@
   <div id="app">
     <div class="layout-header">
       <div class="logo">QIANKUN-ERICCHEN</div>
-      <ul class="sub-apps">
-        <li v-for="item in microApps" :class="{active: item.activeRule === current}" :key="item.name" @click="goto(item)">{{ item.name }}</li>
-      </ul>
+      <div class="sub-apps">
+        <div class="sub-apps-item" v-for="item in microApps" :class="{active: item.activeRule === current}" :key="item.name" @click="goto(item)">{{ item.name }}</div>
+        <div class="userinfo">主应用的state：{{ JSON.stringify(state) }}</div>
+      </div>
     </div>
     <div class="content">
       Hello,QIANKUN!!!!
@@ -14,16 +15,40 @@
 </template>
 
 <script>
+import NProgress from 'nprogress'
 import microApps from './micro-app'
+// 引入全局状态
+import store from '@/store'
 
 export default {
   name: 'App',
   data() {
     return {
+      isLoading: true,
       microApps,
       current: ''
     }
   },
+  computed: {
+    state() {
+      // 如果只需要取某个命名空间下的state，比如 user ，可以加上参数
+      // return store.getGlobalState('user')
+
+      // 返回所有的state则不需添加参数
+      return store.getGlobalState()
+    }
+  },  
+  watch: {
+    isLoading(val) {
+      if (val) {
+        NProgress.start()
+      } else {
+        this.$nextTick(() => {
+          NProgress.done()
+        })
+      }
+    }
+  },  
   methods: {
     goto (item) {
       console.log(item)
@@ -36,11 +61,12 @@ export default {
     if (this.microApps.findIndex(item => item.activeRule === path) >= 0) {
       this.current = path
     }
+    NProgress.start()
   }
 }
 </script>
 
-<style scoped>
+<style>
 html, body{
   margin: 0 !important;
   padding: 0;
@@ -65,23 +91,27 @@ html, body{
 .logo {
   float: left;
   margin: 0 50px;
+  color: rgb(234, 58, 143);
+  font-weight: bold;
 }
 .sub-apps {
-  list-style: none;
+  display: flex;
   margin: 0;
   overflow: hidden;
 }
-.sub-apps li{
-  list-style: none;
+.sub-apps-item {
   padding: 0 20px;
   cursor: pointer;
-  float: left;
+  font-size: 16px;
   font-weight: bold;
-  color: darkgray;
-  font-size: 18px;
 }
-.sub-apps li.active {
+.sub-apps-item.active {
   color: #42b983;
-  text-decoration: underline;
+}
+.userinfo {
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: auto;
+  padding: 0 40px;
 }
 </style>

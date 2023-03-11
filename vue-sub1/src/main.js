@@ -30,7 +30,9 @@ if (window.__POWERED_BY_QIANKUN__) {
 
 export async function bootstrap() {}
 
+// 子应用挂载后，可通过 props 获取主应用的状态值
 export async function mount(props) {
+  console.log("vue-sub1-props传值：",props)
   render(props);
 }
 export async function unmount() {
