@@ -3,6 +3,8 @@ import App from './App.vue'
 import routes from "./router"
 import VueRouter from "vue-router"
 
+import store from './store'
+
 Vue.config.productionTip = false
 
 let instance = null;
@@ -17,6 +19,7 @@ function render(props = {}) {
 
   instance = new Vue({
     router,
+    store,
     render: h => h(App) 
   }).$mount(container ? container.querySelector("#app") : "#app")
 }
@@ -32,7 +35,7 @@ export async function bootstrap() {}
 
 // 子应用挂载后，可通过 props 获取主应用的状态值
 export async function mount(props) {
-  console.log("vue-sub1-props传值：",props)
+  console.log('[vue] props from main framework', props)
   render(props);
 }
 export async function unmount() {
