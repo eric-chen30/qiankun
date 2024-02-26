@@ -1,44 +1,34 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to VUE-SUB1!!!"/>
-    <div>
-      <p class="envIntro">当前处于<code class="qiankun-sign">{{ isInQiankun ? 'qiankun' : '独立运行'}}</code>环境</p>
+    <!-- 左侧菜单 -->
+    <div class="aside-menu">
+      <el-menu
+        default-active="2"
+        @select="handleSelect"
+        class="el-menu-vertical-demo"
+      >
+        <el-menu-item-group>
+          <el-menu-item index="/hello" route="/hello">Hello</el-menu-item>
+          <el-menu-item index="/qiankun" route="/qiankun">Qiankun</el-menu-item>
+        </el-menu-item-group>
+      </el-menu>
     </div>
-    <div class="btns">
-      <template v-if="isInQiankun">
-        <button @click="gotoSubReact">从当前子应用内跳转到`react-sub`子应用</button>
-        <button @click="openSubVue1">独立打开sub-vue1子应用</button>
-      </template>
+    <!-- 内容 -->
+    <div class="content">
+      <router-view></router-view>
     </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  },
-  computed: {
-    isInQiankun () {
-      return window.__POWERED_BY_QIANKUN__
-    }
-  },
   methods: {
-    openSubVue1 () {
-      if (!this.isInQiankun) {
-        alert('当前已经是单独运行的子应用')
-        return
-      }
-      // window.__INJECTED_PUBLIC_PATH_BY_QIANKUN__ 是qiankun注入的子应用对应的地址，谨慎使用，生产环境建议将跳转地址维护在环境变量中
-      window.open(window.__INJECTED_PUBLIC_PATH_BY_QIANKUN__)
-    },
-    gotoSubReact () {
-      history.pushState(null, 'react-sub', '/react-sub')
-    },
+    handleSelect(key, keyPath) {
+      console.log(key, keyPath);
+      this.$router.push(key)
+    }
   }
 }
 </script>
@@ -51,17 +41,19 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-.envIntro {
-  font-size: 24px;
-  font-weight: bold;
+.aside-menu {
+  position: relative;
+  border-right: 1px solid #F7F7F7;
+  margin-bottom: 0;
+  height: calc(100vh - 60px);
+  width: 200px;
 }
-.qiankun-sign {
-  color: rgb(234, 58, 143);
-}
-.btns{
-  margin: 100px;
-}
-.btns button{
-  margin: 0 10px;
+.content {
+  position: absolute;
+  left: 200px;
+  top: 0;
+  right: 0;
+  height: calc(100vh - 60px);
+  background: #F7F7F7;
 }
 </style>
