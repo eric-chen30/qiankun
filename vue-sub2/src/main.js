@@ -35,8 +35,13 @@ if (window.__POWERED_BY_QIANKUN__) {
 
 export async function bootstrap() {}
 
+// 子应用挂载后，可通过 props 获取主应用的状态值
 export async function mount(props) {
-  console.log("vue-sub2-props传值：",props)
+  console.log('[vue] props from main framework', props)
+  // 接受主应用的数据和方法
+  Vue.prototype.$error = props.data.error
+  Vue.prototype.$onGlobalStateChange = props.onGlobalStateChange
+  Vue.prototype.$setGlobalState = props.setGlobalState
   render(props);
 }
 export async function unmount() {
