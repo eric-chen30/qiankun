@@ -1,22 +1,29 @@
 <template>
   <div id="app">
+    <router-view></router-view>
     <!-- 左侧菜单 -->
-    <div class="aside-menu">
+    <!-- <div class="aside-menu">
       <el-menu
         default-active="2"
         @select="handleSelect"
         class="el-menu-vertical-demo"
       >
-        <el-menu-item-group>
-          <el-menu-item index="/hello" route="/hello">Hello</el-menu-item>
-          <el-menu-item index="/qiankun" route="/qiankun">Qiankun</el-menu-item>
-        </el-menu-item-group>
+        <el-submenu index="1">
+          <template slot="title">
+            <i class="el-icon-location"></i>
+            <span>子应用导航</span>
+          </template>
+          <el-menu-item-group>
+            <el-menu-item index="/hello" route="/hello">Hello</el-menu-item>
+            <el-menu-item index="/qiankun" route="/qiankun">Qiankun</el-menu-item>
+          </el-menu-item-group>
+        </el-submenu>
       </el-menu>
-    </div>
+    </div> -->
     <!-- 内容 -->
-    <div class="content">
+    <!-- <div class="content">
       <router-view></router-view>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -25,10 +32,10 @@
 export default {
   name: 'App',
   methods: {
-    handleSelect(key, keyPath) {
-      console.log(key, keyPath);
-      this.$router.push(key)
-    }
+    // handleSelect(key, keyPath) {
+    //   console.log(key, keyPath);
+    //   this.$router.push(key)
+    // }
   }
 }
 </script>

@@ -13,7 +13,6 @@
     "start:vue-main": "cd vue-main && npm start",
     "start:vue-sub1": "cd vue-sub1 && npm start",
     "start:vue-sub2": "cd vue-sub2 && npm start",
-    "start:react-sub": "cd react-sub && npm start",
     "build": "npm-run-all build:*",
     "build:vue-main": "cd vue-main && npm run build",
     "build:vue-sub1": "cd vue-sub1 && npm run build",
